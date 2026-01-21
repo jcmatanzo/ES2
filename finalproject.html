@@ -1,0 +1,462 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Jose Carlos Matanzo Perez - Fab Academy</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="Fab Academy documentation site for Jose Carlos Matanzo Perez">
+	<link rel="icon" type="image/jpg" href="assets/images/favicon.ico" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
+
+				<!-- Logo -->
+				<a href="index.html" class="logo">
+					<span class="symbol"><img src="assets/images/logo.svg" alt="" /></span><span class="title">JOSE CARLOS MATANZO PEREZ - FAB ACADEMY</span>
+				</a>
+
+				<!-- Nav -->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
+
+				<style>
+					.centered-container {
+					  display: flex;
+					  flex-direction: column;
+					  justify-content: center;
+					  align-items: center;
+					  height: 90vh; /* Use 90% of screen height */
+					}
+					
+					/* Fade-in Animation */
+					.fade-in {
+					  opacity: 0;
+					  animation: fadeInAnimation ease 2s;
+					  animation-fill-mode: forwards;
+					}
+					
+					@keyframes fadeInAnimation {
+					  0% { opacity: 0; }
+					  100% { opacity: 1; }
+					}
+				</style>
+
+			</div>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<h2>Menu</h2>
+			<ul>
+				<li><a href="index.html">Assignments</a></li>
+				<li><a href="about.html">About Me</a></li>
+				<li><a href="JCMatanzo_FinalProjectPresentation.html">FINAL PROJECT PRESENTATION</a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<h1>Final Project Development History</h1>
+					<h2>Initial Sketch</h2>
+						<p>
+							My first idea for a final project consists in a small robot arm that uses a camera and image recognition artificial inteligence to identify and physically track an objective.
+							<img src="final_project_assets/images/sketch_final_project.jpg" alt="Sketch of the robot arm" width="900px" height="700px" style="display: block; margin: 0 auto; border: 5px solid #585858;">
+						</p>
+					<p>
+						This project is intended to demostrate the capabilities of computer vision and serve as a guide on how to create a system based on it.
+						Here is the first 3D model of the design, developed as part of my <u><a href="assignments/week02.html" target="_blank">week 2 assignment</a></u>:
+						<div class="centered-container">
+							<div class="sketchfab-embed-wrapper fade-in">
+							  <iframe title="Week02_Final_project_assembly" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="800" height="600" src="https://sketchfab.com/models/b29f9785ce3f4023815ce47c22605607/embed"> </iframe> 
+							  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #585858;"> 
+								<a href="https://sketchfab.com/3d-models/week02-final-project-assembly-b29f9785ce3f4023815ce47c22605607?utm_medium=embed&utm_campaign=share-popup&utm_content=b29f9785ce3f4023815ce47c22605607" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Week02_Final_project_assembly </a> 
+								by 
+								<a href="https://sketchfab.com/josecarlos-matanzo?utm_medium=embed&utm_campaign=share-popup&utm_content=b29f9785ce3f4023815ce47c22605607" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> josecarlos-matanzo </a> 
+								on 
+								<a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=b29f9785ce3f4023815ce47c22605607" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+							  </p>
+							</div>
+						  </div>
+					</p>
+					<p>
+						I plan to use open source computer vision code, two servomotors for the movement of the joints and a stepper motor for the movement of the base.
+						<br>I am still deciding what microcontroller to use, since I want to have enough processing power to have smooth tracking and movement.
+						<br>
+						<br>Here are the components that I am initially considering:
+							<ul>
+								<li><u><a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/user_guide.html" target="_blank">ESP32-P4-Function-EV-Board</a></u> as my microcontroller board.</li>
+								<li><u><a href="https://openmv.io/collections/all-products/products/openmv-cam-h7-plus?variant=31180638224478" target="_blank">OpenMV Cam H7 Plus</a></u> as my camera and vision processor.</li>
+								<li><u><a href="https://es.aliexpress.com/item/1005007929609604.html?src=bing&aff_short_key=UneMJZVf&aff_platform=true&isdl=y&albch=shopping&acnt=135095331&isdl=y&albcp=555189159&albag=1306220973487898&slnk=&trgt=pla-2333438552398040&plac=&crea=81638867235071&netw=o&device=c&mtctp=e&utm_source=Bing&utm_medium=shopping&utm_campaign=PA_Bing_MX_Pmax_ALL_MAXvalue_20241125_newstore&utm_content=MX-ALL&utm_term=ds3218%20servo&msclkid=c7d509ddeb0b137662f16e715cd235e5&gatewayAdapt=glo2esp"></a>DS3218 Servomotor</u> for the movement of the arm.</li>
+								<li><u><a href="https://www.steren.com.mx/motor-a-pasos-nema-17.html" target="_blank">Nema 17 Stepper motor</a></u> for the rotation of the base.</li>
+								<li><u><a href="https://www.amazon.com.mx/Zerone-Tepping-M%C3%B3dulo-Piezas-Impresora/dp/B0792D47NV/ref=sr_1_4?adgrpid=1168781280183581&dib=eyJ2IjoiMSJ9.Vs5oqtEOvo9nOgIfrfyBp7zPRyR0UpQkn8y0joSCkABRl2V1844w-KoxnsRqOJA48NmU2a6qrcDbHmrYmb7lvKefTiCl8dQ09NZ4aOPABft6e611mBLKFbtIC3g7dLJHWbI08FHNGUNlPLRA_1IRfSJ4qrKposRWEDFHwDNJJMhYHwqqIZmOaROY51RzbZbvp9nJzPah5VzHgBZSjIN1NxbobTUDfSIlg66IzedVLZZSUQQNRgK0UKaQxgpSwIuQNCqiYa09EttTx1qPxG7GDQDRU8uPM4k7dgZY1SmqQxF24mFKttrCRGS-7IvZhmC8X-wr_dK2rwCSIOT1wuoKD4UAVXPmPkSx5o6t6gWEn3Ix9PBU7_cZIPsAE6pWfI_mLMsn7CLDnqj6xNZoEnUny_VCPuoxRPgXbrmXLdhC7V8v3iscAY5MWfkLb9uFd7rm.HbHwfK631pauUhLw1U9U-_033vxil-Tl-ScU4vaZmrw&dib_tag=se&hvadid=73049085071231&hvbmt=be&hvdev=c&hvlocphy=151234&hvnetw=o&hvqmt=e&hvtargid=kwd-73049180975474%3Aloc-119&hydadcr=26975_11696034&keywords=a4988+driver&mcid=8719db7df1e03cd1be673c76e17431dc&qid=1739372736&sr=8-4&ufe=app_do%3Aamzn1.fos.de93fa6a-174c-4df7-be7c-5bc8e9c5a71b">A4988 Stepper Motor Driver</a></u> for controlling the stepper motor.</li>
+							</ul>
+					</p>
+
+<hr>
+
+				<h1>Midterm Review - Final Project Development and Planning</h1>
+				<h2>1. Project Progress Overview</h2>
+
+				<p>During the first half of the Fab Academy cycle, I have made substantial advances towards the realization of my final project. These developments have mainly focused on the design, fabrication, and testing of the electronics and communication systems that will be central to my project.</p>
+				
+				<h3>1.1 Electronics Design and Fabrication</h3>
+				
+				<p>I have successfully designed and produced three different versions of a custom PCB based on the XIAO RP2040 microcontroller:</p>
+				<ul>
+				  <li><u><a href="assignments/week08.html" target="_blank"><b>Version 1 (V1) -</a></b></u> Initial development board created during the Electronic Design and Electronic Production weeks. This board allowed me to experiment with basic input and output devices.</li>
+				 		<p></p>
+							<img src="final_project_assets/images/V1.jpg" alt="" style="display: block; margin: 0 auto; border: 5px solid #585858; width: 45%; height: auto;">
+						<p></p>
+				  <li><u><a href="assignments/week10.html" target="_blank"><b>Version 2 (V2) -</a></b></u> Improved board created during Output Devices week, introducing more reliable power handling, separated voltage lines for different components, and noise reduction through strategic placement of capacitors.</li>
+				  		<p></p>
+							<img src="final_project_assets/images/V2.jpg" alt="" style="display: block; margin: 0 auto; border: 5px solid #585858; width: 45%; height: auto;">
+						<p></p>
+				  <li><u><a href="assignments/week11.html" target="_blank"><b>Version 3 (V3) -</a></b></u> Final communication-focused version produced during Networking and Communications week. It introduced integrated pull-up resistors for I²C communication and additional connectors for modularity, additionally it's production process was by far the cleanest.</li>
+				  		<p></p>
+				  			<img src="final_project_assets/images/V3.jpg" alt="" style="display: block; margin: 0 auto; border: 5px solid #585858; width: 45%; height: auto;">
+			  			<p></p>
+				</ul>
+				
+				<p>Each iteration has built upon the previous one, reflecting continuous improvements in both circuit design and PCB manufacturing techniques.</p>
+				
+				<h3>1.2 Inputs and Outputs Experimentation</h3>
+				
+				<ul>
+				  <li><u><a href="assignments/week09.html" target="_blank"><b>Input -</a></b></u> Successfully integrated the OpenMV H7 camera as a vision-based input device capable of detecting human facial features and sending simple UART-based commands.</li>
+				  <li><u><a href="assignments/week10.html" target="_blank"><b>Outputs -</a></b></u> Controlled high-torque DS3218 servomotors and a Nema 17 stepper motor through the A4988 driver, validating the ability of my PCB to handle various types of actuators.</li>
+				  <li><u><a href="assignments/week11.html" target="_blank"><b>Systems Communication- </a></b></u> Developed an I²C network using three XIAO RP2040 boards, demonstrating successful main-secondary communications with physical actions triggered via button inputs and LED outputs.</li>
+				</ul>
+				
+				<p>Through these tests, I have gained crucial experience in embedded system integration, circuit design refinement, and communication protocols — all critical foundations for the final project.</p>
+				
+				<h2>2. Remaining Tasks and Schedule</h2>
+				
+				<p>To complete my final project successfully, I have identified the following major tasks:</p>
+				
+				<h3>2.1 Mechanical Structure Redesign and Fabrication</h3>
+				
+				<ul>
+				  <li><b>Current situation:</b> The mechanical design done during Computer-Aided Design (Week 2) was rushed and lacks the refinement and functionality needed.</li>
+				  <li><b>Plan:</b>
+					<ul>
+					  <li>Design two alternative mechanical platforms:
+						<ul>
+						  <li>Robotic Arm with multiple degrees of freedom.</li>
+						  <li>Pan-Tilt Turret system offering two-axis movement.</li>
+						</ul>
+					  </li>
+					  <li>Evaluate both systems based on stability, responsiveness, and ease of integration.</li>
+					  <li>Select the best option based on testing results and fabricate it using appropriate methods (laser cutting, 3D printing, CNC milling).</li>
+					</ul>
+				  </li>
+				</ul>
+				
+				<h3>2.2 Further Software Development</h3>
+				
+				<ul>
+				  <li><b>Camera Data Processing:</b> Develop more sophisticated image-processing algorithms with the OpenMV H7 to accurately track or recognize desired features or objects.</li>
+				  <li><b>Motor Control Integration:</b> Write optimized code to translate the processed input data into real-time motor movements on the mechanical system.</li>
+				  <li><b>Testing and Iteration:</b> Continuously test motor responses, refine control algorithms, and ensure smooth, reliable operation.</li>
+				</ul>
+				
+				<h3>2.3 System Integration and Power Management</h3>
+				
+				<ul>
+				  <li><b>Power System Finalization:</b> Select and integrate an appropriate power source that can supply stable voltages and currents to the microcontroller, servos, and stepper motors.</li>
+				  <li><b>Electrical Safety Improvements:</b> Finalize the use of security measures like relays and optocouplers on the motor control PCB to ensure safe operation under all conditions.</li>
+				</ul>
+				
+				<h3>2.4 Final Assembly and Aesthetic Refinement</h3>
+				
+				<ul>
+				  <li><b>Final Physical Enclosure:</b> Design and fabricate a professional-looking enclosure that protects the electronics, organizes the wiring, and improves the overall appearance.</li>
+				  <li><b>Polishing the Final Prototype:</b> Apply finishing techniques such as sanding, painting, or coating to achieve a visually and functionally polished prototype ready for final presentation.</li>
+				</ul>
+				
+				<h2>3. Timeline for Completion</h2>
+				
+				<table border="1" cellspacing="0" cellpadding="5">
+				  <tr>
+					<th>Task</th>
+					<th>Week(s)</th>
+					<th>Status</th>
+				  </tr>
+				  <tr>
+					<td>Mechanical design of two systems</td>
+					<td>Week 14-15</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Fabrication of prototypes</td>
+					<td>Week 15-16</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Selection of final mechanical system</td>
+					<td>Week 16</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Software development (camera + motor control)</td>
+					<td>Week 16-17</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Power system integration and testing</td>
+					<td>Week 17</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Full system integration and first full tests</td>
+					<td>Week 17-18</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Final mechanical assembly and finishing</td>
+					<td>Week 18</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Final debugging and polishing</td>
+					<td>Week 19</td>
+					<td>Complete</td>
+				  </tr>
+				  <tr>
+					<td>Final documentation and video preparation</td>
+					<td>Week 19-20</td>
+					<td>Complete</td>
+				  </tr>
+				</table>
+
+				<p>I am confident that the progress made so far has established a solid foundation for my final project. I have gained critical skills in PCB design, microcontroller programming, input/output system integration, and communication protocols. The remaining work mainly involves mechanical system refinement and full integration of hardware and software components. I am fully committed to completing the project following the proposed schedule, perhaps even being able to get ahead of schedule.</p>
+
+<hr>
+
+				<h2>System Integration</h2>
+					<p>
+					This section corresponds to <b><u><a href="assignments/week15.html" target="_blank">Week 15: System Integration</a></u></b>, where the goal is to bring together all the elements of the final project into a cohesive, working system. The objective is not just to have each component functional in isolation, but to ensure that they work harmoniously together — mechanically, electronically, and programmatically — as part of a real-world application. For my project, this meant ensuring that my robotic vision-based arm could reliably detect, interpret, and react to human presence with physical movement.
+					</p>
+
+					<p>
+					The final system is composed of a 3D-printed robotic arm equipped with a <strong>custom PCB based on the XIAO RP2040</strong>, a <strong>NEMA 17 stepper motor</strong> (soon to be upgraded with a planetary gearbox), two high-torque <strong>DS3218 servo motors</strong>, and an <strong>OpenMV H7 AI camera</strong>. The camera runs a FOMO-based machine learning model to detect a human target, sending interpreted positional data via UART to the RP2040, which controls the servos in real time to adjust the elevation and reach of the arm accordingly. The system is designed to extend the arm toward a detected person and retract when no person is present.
+					</p>
+					<div class="centered-container">
+							<div class="sketchfab-embed-wrapper fade-in">
+							  <iframe title="ObserverArmV4_Assembly" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="800" height="600" src="https://sketchfab.com/models/7fcf9cbef9c84cfdb4ba1b2b9dd82e42/embed"> </iframe> 
+							  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #585858;"> 
+								<a href="https://sketchfab.com/3d-models/week02-final-project-assembly-b29f9785ce3f4023815ce47c22605607?utm_medium=embed&utm_campaign=share-popup&utm_content=b29f9785ce3f4023815ce47c22605607" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> ObserverArmV4_Assembly </a> 
+								by 
+								<a href="https://sketchfab.com/josecarlos-matanzo?utm_medium=embed&utm_campaign=share-popup&utm_content=b29f9785ce3f4023815ce47c22605607" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> josecarlos-matanzo </a> 
+								on 
+								<a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=b29f9785ce3f4023815ce47c22605607" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+							  </p>
+							</div>
+						  </div>
+					<p></p>
+					<img src="assignments_assets/week15_assets/images/IRL_Iso_8_11zon.jpg" alt="" style="display: block; margin: 0 auto; border: 5px solid #585858; width: 65%; height: auto;">
+					<p></p>
+
+					<p>
+					Mechanically, the project emphasizes modular design and manufacturability through 3D printing. Each part was designed to fit using press-fit geometry and reinforced with screws. A key feature is the implementation of a <strong>perfect parallelogram mechanism</strong> in the upper linkages of the arm, which stabilizes the orientation of the end effector (camera) regardless of arm position. This solution was the result of careful research and multiple design iterations. The base also houses a <strong>78mm axial ball bearing</strong> to allow low-friction rotation, and the entire arm structure was optimized for smooth motion through custom axial joints.
+					</p>
+
+					<p>
+					The electronics are fully integrated onto a compact PCB that not only powers the system but also serves as a central communication node. It includes headers for the stepper driver (A4988), servo connections, power inputs (5V and 12V), and UART/I²C lines. The camera communicates with the RP2040 over UART, while the board itself is mounted to rotate with the arm, reducing the complexity of cable management. All wires from the servos and camera are routed internally through the structure, exiting cleanly at the base. A potential future improvement is the addition of a slip ring to allow for continuous 360° base rotation.
+					</p>
+					<p></p>
+					<img src="assignments_assets/week11_assets/images/5_V3-min.jpg" alt="" style="display: block; margin: 0 auto; border: 5px solid #585858; width: 65%; height: auto;">
+					<p></p>
+					<p></p>
+					<img src="assignments_assets/week15_assets/images/IRL_Top_11_11zon.jpg" alt="" style="display: block; margin: 0 auto; border: 5px solid #585858; width: 65%; height: auto;">
+					<p></p>
+					<p>
+					The programming side consists of two coordinated codebases. The OpenMV script performs continuous image capture and detection, sending vertical position offsets and presence signals via serial communication. The RP2040 interprets these messages, gradually adjusting servo angles within constrained safety limits to prevent damage or erratic motion. Motion is smoothed through incremental updates and range clamping, ensuring a responsive but controlled behavior.
+					</p>
+
+					<p>
+					Testing confirmed the effectiveness of the communication and motion coordination system, with the servos reacting accurately to the visual feedback from the camera. One limitation discovered was the stepper motor’s inability to rotate the full arm assembly due to torque constraints, leading to the decision to upgrade to a gearbox-equipped version (10:1 or 14:1). Despite this, the vertical and forward motions of the arm were fully functional and stable.
+					</p>
+					<p>
+								<video controls style="display: block; margin: 0 auto; border: 5px solid #585858; width: 65%; height: auto;">
+									<source src="assignments_assets/week15_assets/video/ARM_Test1_COMP1.mp4" type="video/mp4"></video>
+					</p>
+
+					<p>
+					A major part of system integration was also the <strong>packaging and finish</strong> of the design. Surface sanding was carried out in multiple stages (60 to 600 grit) to ensure a smooth texture, with plans for priming and painting to give the final product a polished, professional appearance. The mechanical layout, wire management, and enclosure planning reflect a strong intention to design this prototype as a near-finished product, not just a functional experiment.
+					</p>
+
+					<p>
+					In conclusion, this system integration process allowed me to validate the full functionality of my project under real-world conditions. It represents the culmination of everything learned during the FabAcademy — from 3D design and electronics production to embedded programming and interface development. Every subsystem has been engineered to work together as a unified whole, and the result is a responsive, intelligent, and adaptable robotic platform ready for future refinement and expansion.
+					</p>
+			
+<hr>
+				<h2>Applications and Implications</h2>
+
+					<p>
+					This section corresponds to <b><u><a href="assignments/week17.html" target="_blank">Week 17: Applications and Implications</a></u></b>, where the focus is on defining, planning, and evaluating the final project's development. The objective is not just to describe what the project is, but to anticipate its performance, assess its viability, and ensure that it meets the criteria of an independently operable, skill-integrated masterpiece. For my project, this meant deeply analyzing what would be designed, what materials and processes would be required, what needed to be tested, and what still needed to be resolved to bring the system to full functionality.
+					</p>
+
+					<p>
+					My final project is a computer vision-based robotic arm that tracks a human subject using an <strong>OpenMV H7 camera</strong>. The system includes two servo-controlled axes (height and extension) and a stepper-controlled base. These are managed through a custom PCB based on the <strong>XIAO RP2040</strong>, making it an autonomous tracking turret for applications such as surveillance or interaction.
+					</p>
+
+					<p>
+					The concept draws inspiration from the <strong><a href="https://developer.nvidia.com/embedded/community/jetson-projects/jetmax" target="_blank">Jet Max</a></strong> robotic arm and the mechanical design leverages a <strong>parallelogram linkage</strong> to stabilize the camera during movement. This ensured both structural reliability and a clear view from the end effector.
+					</p>
+
+					<p>
+					I designed the entire structure and created a custom PCB to coordinate all movement based on image data. The design incorporates all Fab Academy disciplines: 2D and 3D design, additive and subtractive fabrication, electronics production, and software development.
+					</p>
+
+					<p>
+					The <strong>Bill of Materials</strong> includes PLA for the 3D-printed structure, DS3218 servos, a NEMA17 motor with a planetary gearbox, and various standard electronics. Materials were sourced from online vendors, while PCB components were provided by my local instructor. The total project cost is estimated around <strong>$196</strong> pre-shipping and taxes.
+					</p>
+					<p></p>
+						<h3>Mechanical Components</h3>
+								<table border="1" cellpadding="6" cellspacing="0">
+								<tr>
+									<th>Item</th>
+									<th>Details</th>
+									<th>Quantity</th>
+									<th>Unit Price</th>
+									<th>Source / Link</th>
+								</tr>
+								<tr><td>PLA Filament</td><td>Black PLA</td><td>~1.6 kg</td><td>$23.50 per kg</td><td><u><a href="https://articulo.mercadolibre.com.mx/MLM-1392690609-filamento-pla-175-mm-enrollado-perfecto-colores-inovamarket-_JM?attributes=COLOR_SECONDARY_COLOR%3ATmVncm8%3D&quantity=1">Link</a></u></td></tr>
+								<tr><td>Axial Ball Bearing</td><td>78mm OD, 40mm ID, 26mm H</td><td>1</td><td>$5.68</td><td><u><a href="https://articulo.mercadolibre.com.mx/MLM-1477591854-rodamiento-balero-51308-axial-de-bolas-de-simple-efecto-_JM" target="_blank">Link</a></u></td></tr>
+								<tr><td>M3 Screws & Nuts</td><td>Mixed lengths</td><td>TBD</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>M5 Screws</td><td>12mm</td><td>9</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>M5 Screws</td><td>16mm</td><td>9</td><td>N/A</td><td>N/A</td></tr>
+								</table>
+
+								<h3>Electronic Components (External to PCB)</h3>
+								<table border="1" cellpadding="6" cellspacing="0">
+								<tr>
+									<th>Component</th>
+									<th>Specification</th>
+									<th>Quantity</th>
+									<th>Unit Price</th>
+									<th>Source / Link</th>
+								</tr>
+								<tr><td>DS3218 Servo Motor</td><td>20kg high torque</td><td>2</td><td>$10.03</td><td><u><a href="https://a.aliexpress.com/_mr8Bk27" target="_blank">Link</a></u></td></tr>
+								<tr><td>NEMA 17 Stepper Motor</td><td>40mm, replaced by geared version</td><td>1</td><td>$8.21</td><td><u><a href="https://articulo.mercadolibre.com.mx/MLM-943305569-nema-17-motor-a-pasos-17hs4401-4kgcm-17a-bipolar-_JM" target="_blank">Link</a></u></td></tr>
+								<tr><td>OpenMV H7 Camera</td><td>with FOMO model support</td><td>1</td><td>$80.33</td><td><u><a href="https://a.aliexpress.com/_mOUYoNt" target="_blank">Link</a></u></td></tr>
+								<tr><td>D-100A Power Supply</td><td>5V / 12V dual output</td><td>1</td><td>$23.03</td><td><u><a href="https://a.aliexpress.com/_mMVGiCr" target="_blank">Link</a></u></td></tr>
+								<tr><td>Dupont Cables</td><td>Assorted</td><td>~30</td><td>$4.08 for 120 unit bundle</td><td><u><a href="https://a.aliexpress.com/_mPq2VaR" target="_blank">Link</a></u></td></tr>
+								<tr><td>USB-C to USB-C Cable</td><td>Data + power</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Micro USB to USB-A Cable</td><td>Data + power</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								</table>
+
+								<h3>Custom V3 PCB Components</h3>
+								<table border="1" cellpadding="6" cellspacing="0">
+								<tr>
+									<th>Component</th>
+									<th>Specification / Package</th>
+									<th>Quantity</th>
+									<th>Unit Price</th>
+									<th>Source / Link</th>
+								</tr>
+								<tr><td>XIAO RP2040</td><td>—</td><td>1</td><td>$4.64</td><td><u><a href="https://a.aliexpress.com/_mrEFhoj" target="_blank">Link</a></u></td></tr>
+								<tr><td>A4988 Driver</td><td>—</td><td>1</td><td>$2.20</td><td><u><a href="https://a.aliexpress.com/_mq3sTWf" target="_blank">Link</a></u></td></tr>
+								<tr><td>Resistor</td><td>4700Ω, 1260</td><td>2</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Resistor</td><td>1000Ω, 1260</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Resistor</td><td>10000Ω, 1260</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>LED</td><td>1260</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Capacitor</td><td>10nF, 0603</td><td>4</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Electrolytic Capacitor</td><td>10µF</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Electrolytic Capacitor</td><td>22µF</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Electrolytic Capacitor</td><td>220µF</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>3.3V Voltage Regulator</td><td>—</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Push Button</td><td>—</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Pin Header</td><td>2-pin</td><td>6</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Pin Header</td><td>3-pin</td><td>3</td><td>N/A</td><td>N/A</td></tr>
+								<tr><td>Pin Header</td><td>4-pin</td><td>1</td><td>N/A</td><td>N/A</td></tr>
+								</table>
+								<p></p>
+					<p>
+					Processes used include 3D printing, CNC milling, laser cutting, and vinyl cutting, as well as painting for the final finish. Coding was done in both Python and C++ to enable real-time control and coordination between camera and actuators.
+					</p>
+
+					<p>
+					The main challenge yet to be solved is synchronizing all axes using the vision system, pending the integration of the new geared stepper. Testing and final programming will follow immediately after its installation. Once operational, the system will be evaluated by its ability to <strong>accurately track and follow a person</strong>, demonstrating full mechanical-electrical-software integration.
+					</p>
+
+<hr>
+
+					<h2>Final Development Log</h2>
+						<p>
+							As of the 9th of June, 2025, the project has reached is completion on both production and documentation. The itegration of a gearbox above the stepper motor was the solution to the previously encountered problem. After integrating said component, I was able to program the final version of the arm, which integrates all axes, has a patrol function and a better interface.
+							<br>A final modification was the additon of a mesh tube to secure the cables on the inside and outside of the arm.
+						</p>
+
+<hr>
+
+					<a href="JCMatanzo_FinalProjectPresentation.html"><u><h2>Final Documentation</h2></u></a>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Get in touch</h2>
+					<form method="post" action="#">
+						<div class="fields">
+							<div class="field half">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field half">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="Message"></textarea>
+							</div>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Send" class="primary" /></li>
+						</ul>
+					</form>
+				</section>
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="https://www.instagram.com/motanzo?igsh=cm8zM2NrbG1qeWJh" target="_blank" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a>
+						</li>
+						<li><a href="https://bit.ly/JoseCarlosMatanzo" target="_blank" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+						<li><a href="mailto:jcmatanzo@hotmail.com" target="_blank" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<img src="assets/images/Fab25_logo.jpg" width="300px" alt="">
+				</section>
+				<ul class="copyright">
+					<li>&copy; Copyright 2025 Jose Carlos Matanzo Perez </li>
+					<li>Creative Commons Attribution Non Commercial</li>
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+body {
+    background-color: #A3AB78;
+    padding: 0 36px;
+    color: azure;
+    justify-content: center;
+    font-family: ;
+    /* Esto es un comentario */
+    h1 {
+        color: black;
+    }
+}
