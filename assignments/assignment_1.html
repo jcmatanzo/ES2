@@ -50,7 +50,61 @@
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
-				<h1>Cambiame</h1>
+				<h1>Assignment 1, RTOS Introduction</h1>
+					<p>
+						In this session, the behavior of a system was translated into independent real-time tasks to support correct scheduling and safe multitasking design.
+					</p>
+
+					<h2>1. Activity goals</h2>
+					<p>
+						Identify logical FreeRTOS tasks from system behavior, even when no RTOS code is shown.
+						<br>Our main focus were the following aspects:
+						<ul>
+							<li>Timing requirements</li>
+							<li>Blocking behavior</li>
+							<li>Safety and criticality</li>
+							<li>Independent execution flows</li>
+						</ul>
+					</p>
+
+
+					<h2>2. Analysis</h2>
+					<p>
+						<table border="1" cellpadding="6" cellspacing="0">
+								<tbody><tr>
+									<th>Task Name</th>
+									<th>Trigger (Time/Event)</th>
+									<th>Periodic or Event-Based</th>
+									<th>Is it time critical?</th>
+									<th>Can it block safely?</th>
+									<th>What happens if its delayed?</th>
+									<th>Priority</th>
+								</tr>
+								<tr><td>Read temperature</td><td>Every 50 ms</td><td>Periodic</td><td>Yes</td><td>Non-blocking</td><td>Data loss</td><td>Medium</td></tr>
+								<tr><td>Send data</td><td>Every 2 s</td><td>Periodic</td><td>No</td><td>Non-blocking</td>	<td>Data loss or comms corruption</td><td>Medium</td></tr>
+								<tr><td>Monitor emergency button</td><td>Button pressed</td><td>Event-based</td><td>Yes</td><td>Non-blocking</td><td>Big boom-boom</td><td>High</td></tr>
+								<tr><td>Blink status LED</td><td>Every second</td><td>Periodic</td><td>No</td><td>Blocking</td><td>Blink gets delayed</td><td>Low</td></tr>
+								<tr><td>Store error message</td><td>Event-Failure</td><td>Event-based</td><td>No</td><td>Blocking</td><td>Error message arrives eventually</td><td>Low</td></tr>
+								</tbody></table>
+
+						<h3>Priority Justification</h3>
+						<ol>
+						<li><b>Monitor emergency button — High priority</b>
+						<br>This task is time-critical and event-based, as it responds to an emergency condition triggered by user input. Any delay could result in severe consequences, making immediate system response essential. Therefore, it must have the highest priority to ensure safety.</li>
+<p></p>
+						<li><b>Read temperature — Medium priority</b>
+						<br>This task is periodic and time-critical, as delayed execution may lead to loss of sensor data. However, a short delay does not pose an immediate safety risk. For this reason, it is assigned a medium priority to balance responsiveness and system load.</li>
+<p></p>
+						<li><b>Send data — Medium priority</b>
+						<br>Although this task runs periodically, it is not time-critical. Delays may cause data loss or communication issues but do not directly affect system safety. It is assigned medium priority to ensure regular operation without interfering with more critical tasks.
+<p></p>
+						<li><b>Blink status LED — Low priority</b>
+						<br>This task is periodic and not time-critical. Delays only affect visual feedback and do not compromise system functionality or safety. Consequently, it is assigned a low priority.
+<p></p>
+						<li><b>Store error message — Low priority</b>
+						<br>This task is event-based but not time-critical. Delays do not prevent the system from functioning correctly, as error messages can be stored later without significant impact. Therefore, it is assigned a low priority.
+						</ol>
+					</p>
 			</div>
 		</div>
 
