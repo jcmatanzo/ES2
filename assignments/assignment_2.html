@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Jose Carlos Matanzo Perez - Embedded Systems 2</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="Embedded Systems 2 documentation site for Jose Carlos Matanzo Perez" />
+	<link rel="icon" type="image/jpg" href="../assets/images/favicon.ico" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="../assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
+
+				<!-- Logo -->
+				<a href="../index.html" class="logo">
+					<span class="symbol"><img src="../assets/images/logo.svg" alt="" /></span><span class="title">JOSE CARLOS MATANZO PEREZ - EMBEDDED SYSTEMS 2</span>
+				</a>
+
+				<!-- Nav -->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<h2>Menu</h2>
+			<ul>
+				<li><a href="../index.html">Assignments</a></li>
+				<li><a href="../midtermproject.html">Midterm Project</a></li>
+				<li><a href="../finalproject.html">Final Project</a></li>
+				<li><a href="../about.html">About Me</a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<h1>Assignment 2, RTOS Basics with ESP-IDF LAB</h1>
+				<p>
+					This session focused on developing multiple skills in ESP-IDF using FreeRTOS, including task creation, correct use of blocking mechanisms, inter-task communication through queues, and protection of shared resources with mutexes.
+				</p>
+
+				<h2>1. Activity goals</h2>
+					<p>
+						By the end, you should be able to:
+						<ul>
+							<li>Create multiple FreeRTOS tasks in ESP-IDF.</li>
+							<li>Use blocking correctly (vTaskDelay, waiting on a queue/mutex) so tasks don't hog the CPU.</li>
+							<li>Pass data between tasks using a queue (producer/consumer pattern).</li>
+							<li>Protect shared resources using a mutex (avoid race conditions).</li>
+						</ul>
+					</p>
+
+				<h2>2. Analysis</h2>
+					<h3>2.1 Lab 1 — Two tasks, delays, priorities</h3>
+					<pre><code class="language-cpp" id="lab1-code">
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/gpio.h"
+#include "esp_log.h"
+
+#define LED_GPIO GPIO_NUM_2   // CHANGE for your board
+
+static const char *TAG = "LAB1";
+
+static void blink_task(void *pvParameters)
+{
+    gpio_reset_pin(LED_GPIO);
+    gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
+
+    while (1) {
+        gpio_set_level(LED_GPIO, 1);
+        vTaskDelay(pdMS_TO_TICKS(300));
+        gpio_set_level(LED_GPIO, 0);
+        vTaskDelay(pdMS_TO_TICKS(300));
+    }
+}
+
+static void hello_task(void *pvParameters)
+{
+    int n = 0;
+    while (1) {
+        ESP_LOGI(TAG, "hello_task says hi, n=%d", n++);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+void app_main(void)
+{
+    ESP_LOGI(TAG, "Starting Lab 1 (two tasks)");
+
+    // Stack size in ESP-IDF FreeRTOS is in BYTES
+    xTaskCreate(blink_task, "blink_task", 2048, NULL, 5, NULL);
+    xTaskCreate(hello_task, "hello_task", 2048, NULL, 2, NULL);
+}
+					</code></pre>
+					<script>
+					function copylab1Code() {
+						let lab1code = document.getElementById("lab1-code").textContent;
+						navigator.clipboard.writeText(lab1code).then(() => {
+							alert("Code copied succesfully.");
+						}).catch(err => console.error('Error copying text: ', err));
+					}
+					</script>
+						<p>
+							<ol>
+								<li>Priority experiment: change hello_task priority from 5 to 2.</li>
+								<li>Does behavior change? Why might it (or might it not)?</li>
+								No behavioural changes, theorized to be because the task dellays allow for both tasks to work 
+
+								<li>Starvation demo: temporarily remove vTaskDelay(...) from hello_task.</li>
+								<li>What happens to blinking?</li>
+								The hello task runs much faster but the blink task remains unchanged.
+
+								<li>Put the delay back and explain in one sentence why blocking helps.</li>
+								Blocking lets our task voluntarily give up the CPU so other tasks get scheduled and executed.
+							</ol>
+						</p>
+					<h3>2.2 Lab 2 — Queue: producer/consumer</h3>
+					<pre><code class="language-cpp" id="lab2-code">
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "esp_log.h"
+
+static const char *TAG = "LAB2";
+static QueueHandle_t q_numbers;
+
+static void producer_task(void *pvParameters)
+{
+    int value = 0;
+
+    while (1) {
+        value++;
+
+        // Send to queue; wait up to 50ms if full
+        if (xQueueSend(q_numbers, &value, pdMS_TO_TICKS(50)) == pdPASS) {
+            ESP_LOGI(TAG, "Produced %d", value);
+        } else {
+            ESP_LOGW(TAG, "Queue full, dropped %d", value);
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+static void consumer_task(void *pvParameters)
+{
+    int rx = 0;
+
+    while (1) {
+        // Wait up to 1000ms for data
+        if (xQueueReceive(q_numbers, &rx, pdMS_TO_TICKS(1000)) == pdPASS) {
+            ESP_LOGI(TAG, "Consumed %d", rx);
+        } else {
+            ESP_LOGW(TAG, "No data in 1s");
+        }
+    }
+}
+
+void app_main(void)
+{
+    ESP_LOGI(TAG, "Starting Lab 2 (queue)");
+
+    q_numbers = xQueueCreate(20, sizeof(int)); // length 5
+    if (q_numbers == NULL) {
+        ESP_LOGE(TAG, "Queue create failed");
+        return;
+    }
+
+    xTaskCreate(producer_task, "producer_task", 2048, NULL, 5, NULL);
+    xTaskCreate(consumer_task, "consumer_task", 2048, NULL, 5, NULL);
+}
+					</code></pre>
+					<script>
+					function copylab2Code() {
+						let lab2code = document.getElementById("lab2-code").textContent;
+						navigator.clipboard.writeText(lab2code).then(() => {
+							alert("Code copied succesfully.");
+						}).catch(err => console.error('Error copying text: ', err));
+					}
+					</script>
+						<p>
+							<ol>
+								<li>1. Make the producer faster: change producer delay 200ms → 20ms.</li>
+								<li>2. When do you see “Queue full”?</li>
+									The queue never filled up
+
+								<li>3. Increase the queue length 5 → 20.</li>
+								<li>4. What changes?</li>
+									No changes
+
+								<li>5. Make the consumer “slow”: after a successful receive, add:
+									<br>vTaskDelay(pdMS_TO_TICKS(300));</li>
+								<li>6. What pattern is happening now (buffering / backlog)?</li>
+									We started losing data, this is because data is being generated and transmitted quicker than we can receive it.
+							</ol>
+						</p>
+					<h3>2.3 Lab 3 — Mutex: protect a shared resource</h3>
+					<pre><code class="language-cpp" id="lab3-code">
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/semphr.h"
+#include "esp_log.h"
+
+static const char *TAG = "LAB3B";
+
+static volatile int shared_counter = 0;
+static SemaphoreHandle_t counter_mutex;
+
+static void increment_task(void *pvParameters)
+{
+    const char *name = (const char *)pvParameters;
+
+    while (1) {
+        xSemaphoreTake(counter_mutex, portMAX_DELAY);
+
+        int local = shared_counter;
+        local++;
+        shared_counter = local;
+
+        xSemaphoreGive(counter_mutex);
+
+        if ((shared_counter % 1000) == 0) {
+            ESP_LOGI(TAG, "%s sees counter=%d", name, shared_counter);
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(1));
+    }
+}
+
+void app_main(void)
+{
+    ESP_LOGI(TAG, "Starting Lab 3B (mutex fix)");
+
+    counter_mutex = xSemaphoreCreateMutex();
+    if (counter_mutex == NULL) {
+        ESP_LOGE(TAG, "Mutex create failed");
+        return;
+    }
+
+    xTaskCreate(increment_task, "incA", 2048, "TaskA", 6, NULL);
+    xTaskCreate(increment_task, "incB", 2048, "TaskB", 4, NULL);
+}
+					</code></pre>
+					<script>
+					function copylab3Code() {
+						let lab3code = document.getElementById("lab3-code").textContent;
+						navigator.clipboard.writeText(lab3code).then(() => {
+							alert("Code copied succesfully.");
+						}).catch(err => console.error('Error copying text: ', err));
+					}
+					</script>
+					<p>
+						<ol>
+							<li>1. Remove the mutex again. Do you ever see weird behavior?</li>
+							Task A runs constantly without allowing Task B to run.
+
+							<li>2. Change priorities: TaskA priority 6, TaskB priority 4.</li>
+							<li>3. What do you expect and why?</li>
+							No changes, the system is stable. This is because even with the higher priority allows each task to run only one before allowing the other task to run.
+
+							<li>4. In one sentence: what does a mutex “guarantee”?</li>
+							A mutex guarantees that only one task at a time can access a shared resource, preventing data corruption.
+						</ol>
+					</p>
+
+					<h3>2.4 Lab 3 — Task exercise</h3>
+						<p>
+							Create the 7 task code
+							<ol>
+								<li>Task 1 Heartbeat</li>
+								<li>Task 2 Alive task</li>
+								<li>Task 3 Queue Struct Send</li>
+								<li>Task 4 Queue Struct Receive</li>
+								<li>Task 5 and 6 Mutex reading a button</li>
+								<li>Task 7 Error loggin for task 1-6</li>
+							</ol>
+						</p>
+						<pre><code class="language-cpp" id="lab3-code">
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/gpio.h"
+#include "esp_log.h"
+
+#define LED_GPIO GPIO_NUM_2
+#define BUTTON1_GPIO GPIO_NUM_3
+#define BUTTON2_GPIO GPIO_NUM_15
+
+static const char *TAG = "LAB3B";
+
+static volatile int shared_counter = 0;
+static volatile int button_shared_counter = 0;
+
+static volatile int x0 = 0;
+static volatile int x1 = 0;
+static volatile int x2 = 0;
+static volatile int x3 = 0;
+static volatile int x4 = 0;
+static volatile int x5 = 0;
+static volatile int x6 = 1;
+
+static SemaphoreHandle_t counter_mutex;
+static SemaphoreHandle_t button_mutex; 
+static QueueHandle_t q_messages;
+
+typedef struct{
+    int id;
+    int value;
+} Message_t;
+
+static void increment_task(void *pvParameters)
+{
+    const char *name = (const char *)pvParameters;
+    while (1) {
+        xSemaphoreTake(counter_mutex, portMAX_DELAY);
+        shared_counter++;
+        ESP_LOGI(TAG, "%s sees counter=%d", name, shared_counter);
+        xSemaphoreGive(counter_mutex);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+static void heartbeat_task(void *pvParameters)
+{
+    gpio_reset_pin(LED_GPIO);
+    gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
+    while (1) {
+        gpio_set_level(LED_GPIO, 1);
+        vTaskDelay(pdMS_TO_TICKS(300));
+        gpio_set_level(LED_GPIO, 0);
+        vTaskDelay(pdMS_TO_TICKS(300));
+    }
+}
+
+static void alive_task(void *pvParameters)
+{
+    while (1) {
+        ESP_LOGI(TAG, "alive");
+        vTaskDelay(pdMS_TO_TICKS(2000));
+    }
+}
+
+static void sender_task(void *pvParameters)
+{
+    Message_t msg;
+    msg.id = 1;
+    while (1) {
+        xSemaphoreTake(counter_mutex, portMAX_DELAY);
+        msg.value = shared_counter;
+        xSemaphoreGive(counter_mutex);
+        xQueueSend(q_messages, &msg, portMAX_DELAY);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+static void receiver_task(void *pvParameters)
+{
+    Message_t rx;
+    while (1) {
+        if (xQueueReceive(q_messages, &rx, portMAX_DELAY) == pdPASS) {
+            ESP_LOGI(TAG, "Queue rx: id=%d value=%d", rx.id, rx.value);
+        }
+    }
+}
+
+static void readbutton1_task(void *pvParameters)
+{
+    gpio_reset_pin(BUTTON1_GPIO);
+    gpio_set_direction(BUTTON1_GPIO, GPIO_MODE_INPUT);
+    while (1) {
+        if (gpio_get_level(BUTTON1_GPIO) == 0) {
+            xSemaphoreTake(button_mutex, portMAX_DELAY);
+            button_shared_counter++;
+            ESP_LOGI(TAG, "Button 1 pressed. Shared: %d", button_shared_counter);
+            xSemaphoreGive(button_mutex);
+        }
+        vTaskDelay(pdMS_TO_TICKS(200)); 
+    }
+}
+
+static void readbutton2_task(void *pvParameters)
+{
+    gpio_reset_pin(BUTTON2_GPIO);
+    gpio_set_direction(BUTTON2_GPIO, GPIO_MODE_INPUT);
+    while (1) {
+        if (gpio_get_level(BUTTON2_GPIO) == 0) { 
+            xSemaphoreTake(button_mutex, portMAX_DELAY);
+            button_shared_counter++;
+            ESP_LOGI(TAG, "Button 2 pressed. Shared: %d", button_shared_counter);
+            xSemaphoreGive(button_mutex);
+        }
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
+
+static void monitor_task(void *pvParameters)
+{
+    while (1) {
+        if (x0 != 0) ESP_LOGE(TAG, "Error log: Increment Task A failure detected");
+        if (x1 != 0) ESP_LOGE(TAG, "Error log: Increment Task B failure detected");
+        if (x2 != 0) ESP_LOGE(TAG, "Error log: Heartbeat Task failure detected");
+        if (x3 != 0) ESP_LOGE(TAG, "Error log: Alive Task failure detected");
+        if (x4 != 0) ESP_LOGE(TAG, "Error log: Sender Task failure detected");
+        if (x5 != 0) ESP_LOGE(TAG, "Error log: Receiver Task failure detected");
+        if (x6 != 0) ESP_LOGE(TAG, "Error log: Button Task failure detected");
+
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+void app_main(void)
+{
+    counter_mutex = xSemaphoreCreateMutex();
+    button_mutex = xSemaphoreCreateMutex(); 
+
+    if (counter_mutex == NULL || button_mutex == NULL) return;
+
+    q_messages = xQueueCreate(10, sizeof(Message_t));
+
+    xTaskCreate(increment_task, "incA", 2048, "TaskA", 6, NULL);
+    xTaskCreate(increment_task, "incB", 2048, "TaskB", 4, NULL);
+    xTaskCreate(heartbeat_task, "heartbeat", 2048, NULL, 5, NULL);
+    xTaskCreate(alive_task, "alive", 2048, NULL, 0, NULL);
+    xTaskCreate(sender_task, "sender", 2048, NULL, 1, NULL);
+    xTaskCreate(receiver_task, "receiver", 2048, NULL, 2, NULL);
+    xTaskCreate(readbutton1_task, "btn1", 2048, NULL, 0, NULL);
+    xTaskCreate(readbutton2_task, "btn2", 2048, NULL, 0, NULL);
+    xTaskCreate(monitor_task, "monitor", 2048, NULL, 1, NULL);
+}
+						</code></pre>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Get in touch</h2>
+					<form method="post" action="#">
+						<div class="fields">
+							<div class="field half">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field half">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="Message"></textarea>
+							</div>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Send" class="primary" /></li>
+						</ul>
+					</form>
+				</section>
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="https://www.instagram.com/motanzo?igsh=cm8zM2NrbG1qeWJh" target="_blank" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a>
+						</li>
+						<li><a href="https://bit.ly/JoseCarlosMatanzo" target="_blank" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+						<li><a href="mailto:jcmatanzo@hotmail.com" target="_blank" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					
+				</section>
+				<ul class="copyright">
+					<li>&copy; Copyright 2026 Jose Carlos Matanzo Perez </li>
+					<li>Creative Commons Attribution Non Commercial</li>
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/browser.min.js"></script>
+	<script src="../assets/js/breakpoints.min.js"></script>
+	<script src="../assets/js/util.js"></script>
+	<script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
