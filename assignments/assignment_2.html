@@ -110,6 +110,7 @@ void app_main(void)
     xTaskCreate(hello_task, "hello_task", 2048, NULL, 2, NULL);
 }
 					</code></pre>
+					<button onclick="copylab1Code()">Copy Code</button>
 					<script>
 					function copylab1Code() {
 						let lab1code = document.getElementById("lab1-code").textContent;
@@ -189,6 +190,7 @@ void app_main(void)
     xTaskCreate(consumer_task, "consumer_task", 2048, NULL, 5, NULL);
 }
 					</code></pre>
+					<button onclick="copylab2Code()">Copy Code</button>
 					<script>
 					function copylab2Code() {
 						let lab2code = document.getElementById("lab2-code").textContent;
@@ -261,6 +263,7 @@ void app_main(void)
     xTaskCreate(increment_task, "incB", 2048, "TaskB", 4, NULL);
 }
 					</code></pre>
+					<button onclick="copylab3Code()">Copy Code</button>
 					<script>
 					function copylab3Code() {
 						let lab3code = document.getElementById("lab3-code").textContent;
@@ -295,7 +298,7 @@ void app_main(void)
 								<li>Task 7 Error loggin for task 1-6</li>
 							</ol>
 						</p>
-						<pre><code class="language-cpp" id="lab3-code">
+						<pre><code class="language-cpp" id="lab3ex-code">
 #include &lt;stdio.h&gt;
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -448,6 +451,15 @@ void app_main(void)
     xTaskCreate(monitor_task, "monitor", 2048, NULL, 1, NULL);
 }
 						</code></pre>
+						<button onclick="copylab3exCode()">Copy Code</button>
+					<script>
+					function copylab3exCode() {
+						let lab3excode = document.getElementById("lab3ex-code").textContent;
+						navigator.clipboard.writeText(lab3excode).then(() => {
+							alert("Code copied succesfully.");
+						}).catch(err => console.error('Error copying text: ', err));
+					}
+					</script>
 			</div>
 		</div>
 
