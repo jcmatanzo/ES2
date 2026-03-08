@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Jose Carlos Matanzo Perez - Embedded Systems 2</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="Embedded Systems 2 documentation site for Jose Carlos Matanzo Perez" />
+	<link rel="icon" type="image/jpg" href="../assets/images/favicon.ico" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="../assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
+
+				<!-- Logo -->
+				<a href="../index.html" class="logo">
+					<span class="symbol"><img src="../assets/images/logo.svg" alt="" /></span><span class="title">JOSE CARLOS MATANZO PEREZ - EMBEDDED SYSTEMS 2</span>
+				</a>
+
+				<!-- Nav -->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<h2>Menu</h2>
+			<ul>
+				<li><a href="../index.html">Assignments</a></li>
+				<li><a href="../midtermproject.html">Midterm Project</a></li>
+				<li><a href="../finalproject.html">Final Project</a></li>
+				<li><a href="../about.html">About Me</a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<h1>Assignment 4: Wi-FI Programming Lab - MQTT LAB pt1</h1>
+				<p>This assignment focuses on programming Wi-Fi capabilities using ESP-IDF and using MQTT protocol.</p>
+
+				<h2>1. Activity Goals</h2>
+				<p>The main goals of this activity are:</p>
+				<ul>
+					<li>Understand the basics of MQTT protocol</li>
+					<li>Implement MQTT client functionality in ESP-IDF</li>
+					<li>Connect to an MQTT broker to read and publish messages</li>
+					<li>Control a DC motor using MQTT</li>
+				</ul>
+<hr>
+				<h2>2. Materials and Setup</h2>
+				<h3>BOM</h3>
+				<table border="1" cellpadding="6" cellspacing="0">
+								<tbody><tr>
+									<th>#</th>
+									<th>Item</th>
+									<th>Qty</th>
+									<th>Link/Source</th>
+									<th>Cost</th>
+									<th>Notes</th>
+								</tr>
+								<tr><td>1</td><td>Espressif ESP32-C6-DevKitC-1</td><td>1</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>2</td><td>L298N DC Motor Driver</td><td>1</td><td>______</td><td>______</td><td>12V motor input, 5V logic input</td></tr>
+								<tr><td>3</td><td>DC Motor</td><td>1</td><td>______</td><td>______</td><td>12V DC motor</td></tr>
+								<tr><td>4</td><td>Breadboard</td><td>1</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>5</td><td>Potentiometers</td><td>2</td><td>______</td><td>______</td><td>______</td></tr>
+								</tbody></table>
+							<p><b>Tools / Software</b> - Visual Studio Code, ESP-IDF extension, Mosquitto.</p>
+							<p><b>Wiring / Safety</b> - Motor driver current limit: 4A. A DC power supply was used at an output of 12V and 0.5 A.</p>
+<hr>
+				<h2>3. Data, Tests & Evidence</h2>
+				<p>For this assignment, we used five different codes that are included in the repository <u><a href="" target="_blank">here</a></u>. This practice helps us reduce the size of the main code by writing certain functionalities in separate modules.
+				<br>The codes that were modified for the assignment are <code>main.c</code> and <code>mqtt_client_app.c</code></p>
+				</p>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Get in touch</h2>
+					<form method="post" action="#">
+						<div class="fields">
+							<div class="field half">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field half">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="Message"></textarea>
+							</div>
+						</div>
+						<ul class="actions">
+							<li><input type="submit" value="Send" class="primary" /></li>
+						</ul>
+					</form>
+				</section>
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="https://www.instagram.com/motanzo?igsh=cm8zM2NrbG1qeWJh" target="_blank" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a>
+						</li>
+						<li><a href="https://bit.ly/JoseCarlosMatanzo" target="_blank" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+						<li><a href="mailto:jcmatanzo@hotmail.com" target="_blank" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					
+				</section>
+				<ul class="copyright">
+					<li>&copy; Copyright 2026 Jose Carlos Matanzo Perez </li>
+					<li>Creative Commons Attribution Non Commercial</li>
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="../assets/js/browser.min.js"></script>
+	<script src="../assets/js/breakpoints.min.js"></script>
+	<script src="../assets/js/util.js"></script>
+	<script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
