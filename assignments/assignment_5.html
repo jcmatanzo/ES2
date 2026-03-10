@@ -50,7 +50,43 @@
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
-				<h1>Cambiame</h1>
+				<h1>Assignment 5: Wi-FI Programming Lab - MQTT LAB pt1</h1>
+				<p>This assignment focuses on programming Wi-Fi capabilities using ESP-IDF and using MQTT protocol.</p>
+
+				<h2>1. Activity Goals</h2>
+				<p>The main goals of this activity are:</p>
+				<ul>
+					<li>Reinforce the basics of MQTT protocol</li>
+					<li>Implement MQTT client functionality in ESP-IDF</li>
+					<li>Connect to an MQTT broker to read and publish messages</li>
+					<li>Use MQTT to communicate between two ESP32 boards and control hardware</li>
+				</ul>
+<hr>
+				<h2>2. Materials and Setup</h2>
+				<h3>BOM</h3>
+				<table border="1" cellpadding="6" cellspacing="0">
+								<tbody><tr>
+									<th>#</th>
+									<th>Item</th>
+									<th>Qty</th>
+									<th>Link/Source</th>
+									<th>Cost</th>
+									<th>Notes</th>
+								</tr>
+								<tr><td>1</td><td>Espressif ESP32-C6-DevKitC-1</td><td>2</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>2</td><td>Breadboard</td><td>2</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>3</td><td>Potentiometers</td><td>2</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>4</td><td>LED</td><td>4</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>5</td><td>Buttons</td><td>4</td><td>______</td><td>______</td><td>______</td></tr>
+								<tr><td>6</td><td>Resistors</td><td>8</td><td>______</td><td>______</td><td>220 Ω</td></tr>
+								</tbody></table>
+							<p><b>Tools / Software</b> - Visual Studio Code, ESP-IDF extension, Mosquitto.</p>
+<hr>
+				<h2>3. Data, Tests & Evidence</h2>
+				<p>For this assignment, we used five different codes that are included in the repository <u><a href="https://github.com/jcmatanzo/ES2/tree/main/assignments/assignment_assets/assignment4_assets/main" target="_blank">here</a></u>. This practice helps us reduce the size of the main code by writing certain functionalities in separate modules, specifically, all of the necessary initializations used for Wi-Fi communication.
+				<br>The codes that were modified for the assignment are <code>main.c</code> and <code>mqtt_client_app.c</code></p>
+				</p>
+			</div>
 			</div>
 		</div>
 
